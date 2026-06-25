@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>广州 POI 地理信息系统</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.5.2/ol.css">
+</head>
+<body>
+<div id="app">
+  <div id="sidebar">
+    <div id="header"><h2>📍 广州 POI 地理信息系统</h2></div>
+    <div id="search-box">
+      <input type="text" id="keyword" placeholder="搜索 POI 名称...">
+      <select id="category-filter"><option value="">全部类别</option></select>
+      <button id="search-btn">搜索</button>
+    </div>
+    <div id="stats-bar"></div>
+    <div id="poi-list"></div>
+    <div id="pagination"></div>
+  </div>
+  <div id="map-container">
+    <div id="map"></div>
+    <div id="toast"></div>
+  </div>
+</div>
+<div id="detail-modal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/ol@v7.5.2/dist/ol.js"></script>
+<script src="js/api.js"></script>
+<script src="js/map.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
