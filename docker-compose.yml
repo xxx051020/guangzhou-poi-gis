@@ -1,0 +1,33 @@
+﻿version: "3.9"
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    environment:
+      POSTGRES_USER: gis_user
+      POSTGRES_PASSWORD: gis_pass_2024
+      POSTGRES_DB: gz_poi_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gis_user -d gz_poi_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://gis_user:gis_pass_2024@db:5432/gz_poi_db
+      APP_ENV: production
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "python -m app.utils.seed_data && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  pgdata:
